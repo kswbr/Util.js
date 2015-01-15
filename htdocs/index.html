@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+
+  <script type="text/javascript"></script>
+  <script src="./assets/js/bower_components/lodash/dist/lodash.min.js"></script>
+  <script src="./assets/js/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="./assets/js/util.js"></script>
+
+  <script type="text/javascript">
+    //Utilインスタンス化
+    var util = new Util();
+
+    /*
+
+      ログ出力メソッド
+
+    */
+    util.log("ログの出力");
+    util.log("第二引数がfalseの場合、ログは出力されない",false);
+
+    /*
+
+      ベンチマークメソッド
+
+    */
+    util.time("timer");
+    util.timeEnd("timer");
+
+    // 第二引数がfalseの場合、ログは出力されない
+    util.time("timer",false);
+    util.timeEnd("timer",false);
+
+    /*
+
+      画像読み込みフォルダの設定
+
+    */
+    util.setBaseImagePath("assets/images/");
+
+    /*
+
+      画像プリロードメソッド
+
+    */
+    util.preloadImages([
+      "sample-100-200.jpg",
+      "sample-300-200.jpg",
+      "sample-300-400.jpg",
+      "sample-500-400.jpg",
+      "sample-500-900.jpg"
+    ]);
+
+    $(util).on("EndPreloadImages",function(){
+      util.log("画像読み込みしゅーりょー");
+    });
+
+    // Deferredにも対応
+    util.preloadImages([
+      "sample-100-200.jpg",
+      "sample-300-200.jpg",
+      "sample-300-400.jpg",
+      "sample-500-400.jpg",
+      "sample-500-900.jpg"
+    ],false).then(function(){
+      util.log("画像読み込みしゅーりょー (Deferred版)");
+    });
+
+    // onイベントの指定も可能
+    util.preloadImages([
+      "sample-100-200.jpg",
+      "sample-300-200.jpg",
+      "sample-300-400.jpg",
+      "sample-500-400.jpg",
+      "sample-500-900.jpg"
+    ],"HogeHoge");
+
+    $(util).on("HogeHoge",function(){
+      util.log("画像読み込みしゅーりょー(HogeHoge)");
+    });
+
+    /*
+
+      URLからのGet値取得
+
+    */
+    var query = util.getQueryString();
+    util.log(query);
+
+    /*
+
+      オブジェクトの探索
+
+    */
+    var value = util.searchObjectValue( { data1:{ option:"search_value", } }, "option");
+    util.log(value);
+
+
+    var util2 = new Util();
+
+    util2.extend({
+      testMethod:function(){
+        console.log("オブジェクトの拡張");
+        console.log(this);
+      }
+    });
+
+    util2.testMethod();
+
+  </script>
+</head>
+<body>
+
+</body>
+</html>

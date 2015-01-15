@@ -1,0 +1,19 @@
+{
+  "name": "util",
+  "version": "0.0.0",
+  "authors": [
+    "kashiwabara <m_kashiwabara@bbmedia.co.jp>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3",
+    "lodash": "~2.4.1"
+  }
+}
