@@ -1,11 +1,8 @@
 (function($, global, document, undefined){
 
-  //文法の厳密化だけでなく、モダンブラウザのjs処理最適化も行う場合がある
   "use strict";
 
-  var Private = function(){}
-
-  Private.prototype = {
+  var _private = {
     baseImagePath : "",
 
     isSupportConsole : function(method){
@@ -29,13 +26,11 @@
 
   var Public = function(){
 
-    this.extend({_private:new Private()});
-
     //コンストラクタ
     console.log("Utilオブジェクト生成");
 
     if (typeof _ === 'undefined'){
-      console.log("lo-dash(Underscore.js)が読み込まれていません");
+      console.log("lo-dash.js)が読み込まれていません");
       return false;
     }
 
@@ -49,33 +44,33 @@
   Public.prototype = {
 
     log : function(data,enable){
-      if (this._private.consoleTest(enable, console.log) !== false){
+      if (_private.consoleTest(enable, console.log) !== false){
         console.log(data);
       }
     },
 
     time: function(name,enable){
-      if (this._private.consoleTest(enable, console.time) !== false){
+      if (_private.consoleTest(enable, console.time) !== false){
         console.time(name);
       }
     },
 
     timeEnd: function(name,enable){
-      if (this._private.consoleTest(enable, console.timeEnd) !== false){
+      if (_private.consoleTest(enable, console.timeEnd) !== false){
         console.timeEnd(name);
       }
     },
 
     setBaseImagePath:function(path){
-      this._private.baseImagePath = path;
+      _private.baseImagePath = path;
     },
 
     getBaseImagePath:function(){
-      return this._private.baseImagePath;
+      return _private.baseImagePath;
     },
 
     preloadImages: function(images,event_name){
-      var path = this._private.baseImagePath;
+      var path = _private.baseImagePath;
       var d = $.Deferred();
       var self = this;
       var event = event_name;
@@ -160,14 +155,24 @@
       })();
 
     },
-    extend:function(obj){
-      if (!_.isUndefined(this.__proto__)){
-       _.extend(this.__proto__,obj);
+    extend:function(obj,obj2){
+
+      if (!_.isObject(obj) || !_.isObject(obj2))
+        return false;
+
+      if (!_.isUndefined(obj.__proto__)){
+        _.extend(obj.__proto__ , obj2);
       } else {
-       _.extend(this,obj);
+        _.extend(obj , obj2);
       }
     }
   }
 
+  if (!_.isUndefined(global.Util)){
+    console.log("Utilオブジェクトがすでに定義されています");
+    return false;
+  }
+
   global.Util = Public;
+
 })(jQuery, this, this.document);

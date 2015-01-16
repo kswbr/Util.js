@@ -10,7 +10,7 @@
   <script src="./assets/js/util.js"></script>
 
   <script type="text/javascript">
-    //Utilインスタンス化
+    //Utilオブジェクト生成
     var util = new Util();
 
     /*
@@ -35,7 +35,7 @@
 
     /*
 
-      画像読み込みフォルダの設定
+      画像読み込みベースフォルダの設定
 
     */
     util.setBaseImagePath("assets/images/");
@@ -57,7 +57,7 @@
       util.log("画像読み込みしゅーりょー");
     });
 
-    // Deferredにも対応
+    // $.Deferredにも対応 (第二引数にfalseがある場合はイベントを投げない)
     util.preloadImages([
       "sample-100-200.jpg",
       "sample-300-200.jpg",
@@ -65,10 +65,10 @@
       "sample-500-400.jpg",
       "sample-500-900.jpg"
     ],false).then(function(){
-      util.log("画像読み込みしゅーりょー (Deferred版)");
+      util.log("画像読み込みしゅーりょー ($.Deferred版)");
     });
 
-    // onイベントの指定も可能
+    // 終了イベントの指定も可能
     util.preloadImages([
       "sample-100-200.jpg",
       "sample-300-200.jpg",
@@ -87,27 +87,36 @@
 
     */
     var query = util.getQueryString();
-    util.log(query);
+    util.log(query); //URLのGETクエリがオブジェクトで返る
 
     /*
 
-      オブジェクトの探索
+      オブジェクト内部を再帰的に探索
 
     */
     var value = util.searchObjectValue( { data1:{ option:"search_value", } }, "option");
-    util.log(value);
+    util.log(value); // search_valueが取得できる
 
 
-    var util2 = new Util();
+    /*
 
-    util2.extend({
-      testMethod:function(){
-        console.log("オブジェクトの拡張");
-        console.log(this);
+      オブジェクトの拡張
+
+    */
+    var TestParentObject = function(){};
+    TestParentObject.prototype.parentMethod = function (){
+      util.log("親クラスのメソッド");
+    }
+
+    var testChildObject = new TestParentObject();
+    util.extend(testChildObject,{
+      childMethod:function(){
+        util.log("子クラスのメソッド");
       }
     });
 
-    util2.testMethod();
+    testChildObject.parentMethod();
+    testChildObject.childMethod();
 
   </script>
 </head>
