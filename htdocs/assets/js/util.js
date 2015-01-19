@@ -4,27 +4,22 @@
 
   var _private = {
     baseImagePath : "",
-
-    isSupportConsole : function(method){
-      return !_.isUndefined(console) && !_.isUndefined(method);
-    },
-
-    consoleTest : function(enable,method){
-      if (!this.isSupportConsole(method)){
-        return false;
-      }
-
-      if (_.isUndefined(enable)){
-        enable = true;
-      }
-
-      return enable;
-    }
-
   };
 
-
   var Public = function(){
+
+    // console
+    if ( typeof global.console === 'undefined') {
+      global.console = {
+          info: function (){},
+          log: function  (){},
+          debug: function (){},
+          warn: function (){},
+          error: function (){},
+          memory: function (){},
+          table: function (){}
+      };
+    }
 
     //コンストラクタ
     console.log("Utilオブジェクト生成");
@@ -44,19 +39,19 @@
   Public.prototype = {
 
     log : function(data,enable){
-      if (_private.consoleTest(enable, console.log) !== false){
+      if (enable !== false){
         console.log(data);
       }
     },
 
     time: function(name,enable){
-      if (_private.consoleTest(enable, console.time) !== false){
+      if (enable !== false){
         console.time(name);
       }
     },
 
     timeEnd: function(name,enable){
-      if (_private.consoleTest(enable, console.timeEnd) !== false){
+      if (enable !== false){
         console.timeEnd(name);
       }
     },
