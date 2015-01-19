@@ -9,15 +9,15 @@
   var Public = function(){
 
     // console
-    if ( typeof global.console === 'undefined') {
+    if (typeof global.console === 'undefined') {
       global.console = {
-          info: function (){},
-          log: function  (){},
-          debug: function (){},
-          warn: function (){},
-          error: function (){},
-          memory: function (){},
-          table: function (){}
+        info: function (){},
+        log: function  (){},
+        debug: function (){},
+        warn: function (){},
+        error: function (){},
+        memory: function (){},
+        table: function (){}
       };
     }
 
