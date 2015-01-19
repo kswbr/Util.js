@@ -3,7 +3,7 @@
   "use strict";
 
   var _private = {
-    baseImagePath : "",
+    baseImagePath : {default:""},
   };
 
   var Public = function(){
@@ -58,25 +58,44 @@
       }
     },
 
-    setBaseImagePath:function(path){
-      _private.baseImagePath = path;
+    setBaseImagePath:function(path,group){
+
+      if (_.isUndefined(group))
+        group = "default";
+
+      _private.baseImagePath[group] = path;
     },
 
     getBaseImagePath:function(){
-      return _private.baseImagePath;
+
+      if (_.isUndefined(group))
+        group = "default";
+
+      return _private.baseImagePath[group];
     },
 
-    preloadImages: function(images,event_name){
-      var path = _private.baseImagePath;
+    getImagePath:function(image,group){
+
+      if (_.isUndefined(group))
+        group = "default";
+
+      return _private.baseImagePath[group] + image;
+    },
+
+    preloadImages: function(images,options){
       var d = $.Deferred();
       var self = this;
-      var event = event_name;
+
+      var params = _.extend({
+        event:"EndPreloadImages",
+        group:"default"
+      },options);
 
       var promises = _.map(images,function(v,k){
         var d = $.Deferred();
         var image = new Image();
 
-        image.src = path + v;
+        image.src = self.getImagePath(v,params.group);
         image.onload = function(){
           d.resolve();
         };
@@ -85,12 +104,8 @@
 
       $.when.apply(this,promises).then(function(){
 
-        if (_.isUndefined(event)) {
-          event = "EndPreloadImages";
-        }
-
-        if (event !== false){
-          $(self).triggerHandler(event);
+        if (params.event !== false){
+          $(self).triggerHandler(params.event);
         }
 
         d.resolve();

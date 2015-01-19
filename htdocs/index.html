@@ -37,6 +37,21 @@
     */
     Util.setBaseImagePath("assets/images/");
 
+
+    /*
+
+      画像パスの取得
+
+    */
+    var path = Util.getImagePath("sample-100-200.jpg");
+    Util.log(path);
+
+    // 第二引数で画像読み込みパスのグループ指定が可能
+    Util.setBaseImagePath("assets/images/group2/","group2");
+
+    var pathGroup2 = Util.getImagePath("sample-100-200.jpg","group2");
+    Util.log(pathGroup2);
+
     /*
 
       画像プリロードメソッド
@@ -54,14 +69,15 @@
       Util.log("画像読み込みしゅーりょー");
     });
 
-    // $.Deferredにも対応 (第二引数にfalseがある場合はイベントを投げない)
+    // $.Deferredにも対応
+    // (第二引数のeventプロパティにfalseがある場合はイベントを投げない)
     Util.preloadImages([
       "sample-100-200.jpg",
       "sample-300-200.jpg",
       "sample-300-400.jpg",
       "sample-500-400.jpg",
       "sample-500-900.jpg"
-    ],false).then(function(){
+    ],{event:false}).then(function(){
       Util.log("画像読み込みしゅーりょー ($.Deferred版)");
     });
 
@@ -72,11 +88,25 @@
       "sample-300-400.jpg",
       "sample-500-400.jpg",
       "sample-500-900.jpg"
-    ],"HogeHoge");
+    ],{event:"HogeHoge"});
 
     $(Util).on("HogeHoge",function(){
       Util.log("画像読み込みしゅーりょー(HogeHoge)");
     });
+
+    // デフォルトとは別のグループの画像を読み込む
+    Util.preloadImages([
+      "sample-100-200.jpg",
+      "sample-300-200.jpg",
+      "sample-300-400.jpg",
+      "sample-500-400.jpg",
+      "sample-500-900.jpg"
+    ],{event:"EndPreloadGroup2Images",group:"group2"});
+
+    $(Util).on("EndPreloadGroup2Images",function(){
+      Util.log("画像読み込みしゅーりょー(EndPreloadGroup2Images)");
+    });
+
 
     /*
 
