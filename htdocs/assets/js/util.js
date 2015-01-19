@@ -165,7 +165,30 @@
       } else {
         _.extend(obj , obj2);
       }
+    },
+
+    getAngle:function(pos1,pos2){
+
+      var x = pos1.x - pos2.x;
+      var y = pos1.y - pos2.y;
+
+      var radian= Math.atan2(y,x);
+      var angle = radian * 180 / Math.PI;
+
+      if (angle < 0)
+        angle = angle + 360;
+
+      return angle;
+    },
+    getDistance:function(pos1,pos2){
+
+      var dx = Math.abs(pos2.x - pos1.x);
+      var dy = Math.abs(pos2.y - pos1.y);
+      return Math.sqrt(dx * dx + dy * dy);
+
     }
+
+
   }
 
   if (!_.isUndefined(global.Util)){

@@ -118,6 +118,27 @@
     testChildObject.parentMethod();
     testChildObject.childMethod();
 
+    /*
+
+      二点の座標間の角度を求める
+
+    */
+    var position1 = {x:20,y:50}; //座標1
+    var position2 = {x:70,y:150};//座標2
+
+    util.log(util.getAngle(position2,position1));
+
+    /*
+
+      二点の座標間の距離を求める
+
+    */
+    var position1 = {x:20,y:50}; //座標1
+    var position2 = {x:70,y:150};//座標2
+
+    util.log(util.getDistance(position2,position1));
+
+
   </script>
 </head>
 <body>
