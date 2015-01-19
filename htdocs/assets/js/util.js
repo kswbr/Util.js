@@ -8,7 +8,6 @@
 
   var Public = function(){
 
-    // console
     if (typeof global.console === 'undefined') {
       global.console = {
         info: function (){},
@@ -21,19 +20,22 @@
       };
     }
 
-    //コンストラクタ
-    console.log("Utilオブジェクト生成");
-
     if (typeof _ === 'undefined'){
-      console.log("lo-dash.js)が読み込まれていません");
+      console.error("lo-dash.jsが読み込まれていません");
       return false;
     }
 
     if (typeof $ === 'undefined'){
-      console.log("Jqueryが読み込まれていません");
+      console.error("Jqueryが読み込まれていません");
       return false;
     }
 
+    if (!_.isUndefined(global.Util)){
+      throw "Util cannot be instantiated";
+      return false;
+    }
+
+    return this;
   }
 
   Public.prototype = {
@@ -194,7 +196,7 @@
     return false;
   }
 
-  global.Util = Public;
+  global.Util = new Public();
 
 })(jQuery, this, this.document);
 

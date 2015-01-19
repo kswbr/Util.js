@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>Util.js使用サンプル (コンソールに結果は表示)</title>
 
   <script type="text/javascript"></script>
   <script src="./assets/js/bower_components/lodash/dist/lodash.min.js"></script>
@@ -10,42 +10,39 @@
   <script src="./assets/js/util.js"></script>
 
   <script type="text/javascript">
-    //Utilオブジェクト生成
-    var util = new Util();
-
     /*
 
       ログ出力メソッド
 
     */
-    util.log("ログの出力");
-    util.log("第二引数がfalseの場合、ログは出力されない",false);
+    Util.log("ログの出力");
+    Util.log("第二引数がfalseの場合、ログは出力されない",false);
 
     /*
 
       ベンチマークメソッド
 
     */
-    util.time("timer");
-    util.timeEnd("timer");
+    Util.time("timer");
+    Util.timeEnd("timer");
 
     // 第二引数がfalseの場合、ログは出力されない
-    util.time("timer",false);
-    util.timeEnd("timer",false);
+    Util.time("timer",false);
+    Util.timeEnd("timer",false);
 
     /*
 
       画像読み込みベースフォルダの設定
 
     */
-    util.setBaseImagePath("assets/images/");
+    Util.setBaseImagePath("assets/images/");
 
     /*
 
       画像プリロードメソッド
 
     */
-    util.preloadImages([
+    Util.preloadImages([
       "sample-100-200.jpg",
       "sample-300-200.jpg",
       "sample-300-400.jpg",
@@ -53,23 +50,23 @@
       "sample-500-900.jpg"
     ]);
 
-    $(util).on("EndPreloadImages",function(){
-      util.log("画像読み込みしゅーりょー");
+    $(Util).on("EndPreloadImages",function(){
+      Util.log("画像読み込みしゅーりょー");
     });
 
     // $.Deferredにも対応 (第二引数にfalseがある場合はイベントを投げない)
-    util.preloadImages([
+    Util.preloadImages([
       "sample-100-200.jpg",
       "sample-300-200.jpg",
       "sample-300-400.jpg",
       "sample-500-400.jpg",
       "sample-500-900.jpg"
     ],false).then(function(){
-      util.log("画像読み込みしゅーりょー ($.Deferred版)");
+      Util.log("画像読み込みしゅーりょー ($.Deferred版)");
     });
 
     // 終了イベントの指定も可能
-    util.preloadImages([
+    Util.preloadImages([
       "sample-100-200.jpg",
       "sample-300-200.jpg",
       "sample-300-400.jpg",
@@ -77,8 +74,8 @@
       "sample-500-900.jpg"
     ],"HogeHoge");
 
-    $(util).on("HogeHoge",function(){
-      util.log("画像読み込みしゅーりょー(HogeHoge)");
+    $(Util).on("HogeHoge",function(){
+      Util.log("画像読み込みしゅーりょー(HogeHoge)");
     });
 
     /*
@@ -86,16 +83,16 @@
       URLからのGet値取得
 
     */
-    var query = util.getQueryString();
-    util.log(query); //URLのGETクエリがオブジェクトで返る
+    var query = Util.getQueryString();
+    Util.log(query); //URLのGETクエリがオブジェクトで返る
 
     /*
 
       オブジェクト内部を再帰的に探索
 
     */
-    var value = util.searchObjectValue( { data1:{ option:"search_value", } }, "option");
-    util.log(value); // search_valueが取得できる
+    var value = Util.searchObjectValue( { data1:{ option:"search_value", } }, "option");
+    Util.log(value); // search_valueが取得できる
 
 
     /*
@@ -105,13 +102,13 @@
     */
     var TestParentObject = function(){};
     TestParentObject.prototype.parentMethod = function (){
-      util.log("親クラスのメソッド");
+      Util.log("親クラスのメソッド");
     }
 
     var testChildObject = new TestParentObject();
-    util.extend(testChildObject,{
+    Util.extend(testChildObject,{
       childMethod:function(){
-        util.log("子クラスのメソッド");
+        Util.log("子クラスのメソッド");
       }
     });
 
@@ -126,7 +123,7 @@
     var position1 = {x:20,y:50}; //座標1
     var position2 = {x:70,y:150};//座標2
 
-    util.log(util.getAngle(position2,position1));
+    Util.log(Util.getAngle(position2,position1));
 
     /*
 
@@ -136,17 +133,17 @@
     var position1 = {x:20,y:50}; //座標1
     var position2 = {x:70,y:150};//座標2
 
-    util.log(util.getDistance(position2,position1));
+    Util.log(Util.getDistance(position2,position1));
 
     /*
 
       ブラウザの情報を調べる
 
     */
-    util.log(util.browser());
-    util.log(util.browser().Chrome.is());
-    util.log(util.browser().IE.is());
-    util.log(util.browser().IE.version());
+    Util.log(Util.browser());
+    Util.log(Util.browser().Chrome.is());
+    Util.log(Util.browser().IE.is());
+    Util.log(Util.browser().IE.version());
 
 
   </script>
