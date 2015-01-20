@@ -112,13 +112,23 @@
       var promises = _.map(images,function(v,k){
         var d = $.Deferred();
         var image = new Image();
+        try{
 
-        image.src = self.getImagePath(v,params.group);
-        self.cacheImage(image,v,params.group);
+          image.src = self.getImagePath(v,params.group);
+          self.cacheImage(image,v,params.group);
 
-        image.onload = function(){
-          d.resolve();
-        };
+          image.onload = function(){
+            d.resolve();
+          };
+
+          image.onerror = function(e){
+            d.reject("== imageLoadError!! == ");
+          }
+
+        }catch(e){
+          d.reject(e);
+        }
+
         return d.promise();
       });
 
@@ -130,6 +140,14 @@
 
         d.resolve();
 
+      },function(e){
+
+        console.error(e);
+        if (params.event !== false){
+          $(self).triggerHandler(params.event + "Error");
+        }
+
+        d.reject();
       });
 
       return d.promise();
