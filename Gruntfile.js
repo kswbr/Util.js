@@ -17,7 +17,10 @@ module.exports = function(grunt) {
         'Gruntfile.js',
         'htdocs/assets/js/*.js',
         '.jshintrc'
-      ]
+      ],
+      options: {
+        jshintrc: '.jshintrc'
+      }
     },
     // grunt-contrib-watchの設定(ウォッチ対象の設定)
     watch: {

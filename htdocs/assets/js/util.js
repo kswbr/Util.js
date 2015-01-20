@@ -32,12 +32,12 @@
     }
 
     if (!_.isUndefined(global.Util)){
-      throw "Util cannot be instantiated";
+      console.error("Util cannot be instantiated");
       return false;
     }
 
     return this;
-  }
+  };
 
   Public.prototype = {
 
@@ -123,7 +123,7 @@
 
           image.onerror = function(e){
             d.reject("== imageLoadError!! == ");
-          }
+          };
 
         }catch(e){
           d.reject(e);
@@ -242,7 +242,7 @@
     }
 
 
-  }
+  };
 
   if (!_.isUndefined(global.Util)){
     console.log("Utilオブジェクトがすでに定義されています");
