@@ -67,6 +67,10 @@
 
     $(Util).on("EndPreloadImages",function(){
       Util.log("画像読み込みしゅーりょー");
+
+      //こんな感じで画像オブジェクトの取り出しも可能
+      var image = Util.getPreloadedImage("sample-100-200.jpg");
+      Util.log(image);
     });
 
     // $.Deferredにも対応
@@ -105,6 +109,11 @@
 
     $(Util).on("EndPreloadGroup2Images",function(){
       Util.log("画像読み込みしゅーりょー(EndPreloadGroup2Images)");
+
+      //こんな感じで画像オブジェクトの取り出しも可能
+      var image = Util.getPreloadedImage("sample-100-200.jpg","group2");
+      Util.log(image);
+
     });
 
 

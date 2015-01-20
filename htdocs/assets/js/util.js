@@ -4,6 +4,7 @@
 
   var _private = {
     baseImagePath : {default:""},
+    images:{default:{}}
   };
 
   var Public = function(){
@@ -81,7 +82,24 @@
 
       return _private.baseImagePath[group] + image;
     },
+    cacheImage:function(image,name,group){
+      if (_.isUndefined(group))
+        group = "default";
 
+      if (_.isUndefined(_private.images[group]))
+        _private.images[group] = {};
+
+      _private.images[group][name] = image;
+    },
+    getPreloadedImage:function(name,group){
+      if (_.isUndefined(group))
+        group = "default";
+
+      if (_.isUndefined(_private.images[group]))
+        _private.images[group] = {};
+
+      return _private.images[group][name];
+    },
     preloadImages: function(images,options){
       var d = $.Deferred();
       var self = this;
@@ -96,6 +114,8 @@
         var image = new Image();
 
         image.src = self.getImagePath(v,params.group);
+        self.cacheImage(image,v,params.group);
+
         image.onload = function(){
           d.resolve();
         };
