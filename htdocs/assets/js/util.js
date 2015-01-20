@@ -64,6 +64,9 @@
       if (_.isUndefined(group))
         group = "default";
 
+      if (_.last(path) !== "/")
+        path += "/";
+
       _private.baseImagePath[group] = path;
     },
 
