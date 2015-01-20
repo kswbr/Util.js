@@ -152,6 +152,10 @@
 
       return d.promise();
     },
+
+    //
+    // http://www.ipentec.com/document/document.aspx?page=javascript-get-parameter
+    //
     getQueryString : function() {
       var result = {};
 
