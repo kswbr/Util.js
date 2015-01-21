@@ -27,7 +27,7 @@
     }
 
     if (typeof $ === 'undefined'){
-      console.error("Jqueryが読み込まれていません");
+      console.error("jQueryが読み込まれていません");
       return false;
     }
 
