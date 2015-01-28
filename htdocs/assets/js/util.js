@@ -221,9 +221,9 @@
         return false;
 
       if (!_.isUndefined(obj.__proto__)){
-        _.extend(obj.__proto__ , obj2);
+        _.merge(obj.__proto__ , obj2);
       } else {
-        _.extend(obj , obj2);
+        _.merge(obj , obj2);
       }
     },
 
