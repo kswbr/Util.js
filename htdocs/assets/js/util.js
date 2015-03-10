@@ -246,9 +246,28 @@
       var dy = Math.abs(pos2.y - pos1.y);
       return Math.sqrt(dx * dx + dy * dy);
 
+    },
+    getGeolocation:function(){
+
+      var d = $.Deferred();
+
+      if(navigator.geolocation){
+
+      	//現在位置を取得できる場合の処理
+        navigator.geolocation.getCurrentPosition(function(position){
+          return d.resolve(position);
+        },
+        function(error){
+          return d.reject({error:2,message:"Geolocation Api Error", info:error});
+        },{enableHighAccuracy:true,maximumAge:5000});
+
+      //Geolocation APIに対応していない
+      }else{
+        return d.reject({error:1,message:"Geolocation Api Not Supported"});
+      }
+
+      return d.promise();
     }
-
-
   };
 
   if (!_.isUndefined(global.Util)){
