@@ -39,25 +39,12 @@
     return this;
   };
 
+  /*
+   *
+   * Utilメソッド一覧
+   *
+   * */
   Public.prototype = {
-
-    log : function(data,enable){
-      if (enable !== false){
-        console.log(data);
-      }
-    },
-
-    time: function(name,enable){
-      if (enable !== false){
-        console.time(name);
-      }
-    },
-
-    timeEnd: function(name,enable){
-      if (enable !== false){
-        console.timeEnd(name);
-      }
-    },
 
     setBaseImagePath:function(path,group){
 

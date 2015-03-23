@@ -9,25 +9,6 @@
   <script src="./assets/js/util.js"></script>
 
   <script type="text/javascript">
-    /*
-
-      ログ出力メソッド
-
-    */
-    Util.log("ログの出力");
-    Util.log("第二引数がfalseの場合、ログは出力されない",false);
-
-    /*
-
-      ベンチマークメソッド
-
-    */
-    Util.time("timer");
-    Util.timeEnd("timer");
-
-    // 第二引数がfalseの場合、ログは出力されない
-    Util.time("timer",false);
-    Util.timeEnd("timer",false);
 
     /*
 
@@ -43,13 +24,13 @@
 
     */
     var path = Util.getImagePath("sample-100-200.jpg");
-    Util.log(path);
+    console.log(path);
 
     // 第二引数で画像読み込みパスのグループ指定が可能
     Util.setBaseImagePath("assets/images/group2/","group2");
 
     var pathGroup2 = Util.getImagePath("sample-100-200.jpg","group2");
-    Util.log(pathGroup2);
+    console.log(pathGroup2);
 
     /*
 
@@ -65,11 +46,11 @@
     ]);
 
     $(Util).on("EndPreloadImages",function(){
-      Util.log("画像読み込みしゅーりょー");
+      console.log("画像読み込みしゅーりょー");
 
       //こんな感じで画像オブジェクトの取り出しも可能
       var image = Util.getPreloadedImage("sample-100-200.jpg");
-      Util.log(image);
+      console.log(image);
     });
 
     // $.Deferredにも対応
@@ -81,7 +62,7 @@
       "sample-500-400.jpg",
       "sample-500-900.jpg"
     ],{event:false}).then(function(){
-      Util.log("画像読み込みしゅーりょー ($.Deferred版)");
+      console.log("画像読み込みしゅーりょー ($.Deferred版)");
     });
 
     // 終了イベントの指定も可能
@@ -94,7 +75,7 @@
     ],{event:"HogeHoge"});
 
     $(Util).on("HogeHoge",function(){
-      Util.log("画像読み込みしゅーりょー(HogeHoge)");
+      console.log("画像読み込みしゅーりょー(HogeHoge)");
     });
 
     // デフォルトとは別のグループの画像を読み込む
@@ -107,11 +88,11 @@
     ],{event:"EndPreloadGroup2Images",group:"group2"});
 
     $(Util).on("EndPreloadGroup2Images",function(){
-      Util.log("画像読み込みしゅーりょー(EndPreloadGroup2Images)");
+      console.log("画像読み込みしゅーりょー(EndPreloadGroup2Images)");
 
       //こんな感じで画像オブジェクトの取り出しも可能
       var image = Util.getPreloadedImage("sample-100-200.jpg","group2");
-      Util.log(image);
+      console.log(image);
 
     });
 
@@ -122,7 +103,7 @@
 
     */
     var query = Util.getQueryString();
-    Util.log(query); //URLのGETクエリがオブジェクトで返る
+    console.log(query); //URLのGETクエリがオブジェクトで返る
 
     /*
 
@@ -130,7 +111,7 @@
 
     */
     var value = Util.searchObjectValue( { data1:{ option:"search_value", } }, "option");
-    Util.log(value); // search_valueが取得できる
+    console.log(value); // search_valueが取得できる
 
 
     /*
@@ -140,13 +121,13 @@
     */
     var TestParentObject = function(){};
     TestParentObject.prototype.parentMethod = function (){
-      Util.log("親クラスのメソッド");
+      console.log("親クラスのメソッド");
     }
 
     var testChildObject = new TestParentObject();
     Util.extend(testChildObject,{
       childMethod:function(){
-        Util.log("子クラスのメソッド");
+        console.log("子クラスのメソッド");
       }
     });
 
@@ -161,7 +142,7 @@
     var position1 = {x:20,y:50}; //座標1
     var position2 = {x:70,y:150};//座標2
 
-    Util.log(Util.getAngle(position2,position1));
+    console.log(Util.getAngle(position2,position1));
 
     /*
 
@@ -171,17 +152,17 @@
     var position1 = {x:20,y:50}; //座標1
     var position2 = {x:70,y:150};//座標2
 
-    Util.log(Util.getDistance(position2,position1));
+    console.log(Util.getDistance(position2,position1));
 
     /*
 
       ブラウザの情報を調べる
 
     */
-    Util.log(Util.browser());
-    Util.log(Util.browser().Chrome.is());
-    Util.log(Util.browser().IE.is());
-    Util.log(Util.browser().IE.version());
+    console.log(Util.browser());
+    console.log(Util.browser().Chrome.is());
+    console.log(Util.browser().IE.is());
+    console.log(Util.browser().IE.version());
 
 
   </script>
